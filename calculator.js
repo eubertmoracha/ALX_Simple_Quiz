@@ -1,27 +1,53 @@
-function checkAnswer() {
-  const correctAnswer = "4";
-
-  // Retrieve selected answer
-  const selectedOption = document.querySelector('input[name="quiz"]:checked');
-
-  // Reference to feedback element
-  const feedback = document.getElementById("feedback");
-
-  if (selectedOption) {
-    const userAnswer = selectedOption.value;
-
-    if (userAnswer === correctAnswer) {
-      feedback.textContent = "Correct! Well done.";
-      feedback.style.color = "#28a745"; // Green for success
-    } else {
-      feedback.textContent = "That's incorrect. Try again!";
-      feedback.style.color = "#dc3545"; // Red for error
-    }
-  } else {
-    feedback.textContent = "Please select an answer before submitting.";
-    feedback.style.color = "#dc3545";
-  }
+// Calculator functions
+function add(num1, num2) {
+  return num1 + num2;
 }
 
-// Add event listener to the submit button
-document.getElementById("submit-answer").addEventListener("click", checkAnswer);
+function subtract(num1, num2) {
+  return num1 - num2;
+}
+
+function multiply(num1, num2) {
+  return num1 * num2;
+}
+
+function divide(num1, num2) {
+  return num2 !== 0 ? num1 / num2 : "Error: Division by zero";
+}
+
+// Utility to update the result
+function updateResult(value) {
+  document.getElementById("calculation-result").textContent = value;
+}
+
+// Fetch and convert input values
+function getInputs() {
+  const num1 = parseFloat(document.getElementById("number1").value);
+  const num2 = parseFloat(document.getElementById("number2").value);
+  return { num1, num2 };
+}
+
+// Event listeners
+document.getElementById("add-button").addEventListener("click", function () {
+  const { num1, num2 } = getInputs();
+  const result = add(num1, num2);
+  updateResult(result);
+});
+
+document.getElementById("subtract-button").addEventListener("click", function () {
+  const { num1, num2 } = getInputs();
+  const result = subtract(num1, num2);
+  updateResult(result);
+});
+
+document.getElementById("multiply-button").addEventListener("click", function () {
+  const { num1, num2 } = getInputs();
+  const result = multiply(num1, num2);
+  updateResult(result);
+});
+
+document.getElementById("divide-button").addEventListener("click", function () {
+  const { num1, num2 } = getInputs();
+  const result = divide(num1, num2);
+  updateResult(result);
+});
